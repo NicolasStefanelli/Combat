@@ -74,9 +74,9 @@ class item:
         elif item.usage_code == 2:
             character.dmg_mod = character.dmg_mod + item.dmg_mod
         elif item.usage_code == 3:
-            pass # add later
+            character.mdef = character.mdef + item.mshield
         else:
-            pass # add later
+            character.pdef = character.mag_defense + item.pshield
 
 def Battle(good_guys,bad_guys):
     battle_order = create_battle_order(good_guys,bad_guys)
@@ -100,6 +100,30 @@ def Battle(good_guys,bad_guys):
                     flee = True
             else:
                 choice = random.randint(1,3)
+
+def create_battle_order(good_guys,bad_guys):
+    ordered = []
+    speed_list = []
+    speed_dict = {}
+    for hero in good_guys:
+        speed_list.append(hero.speed)
+        speed_dict[hero] = hero.speed
+    for hero in bad_guys:
+        speed_list.append(hero.speed)
+        speed_dict[hero] = hero.speed
+    sorted_speeds = speed_list.sort(reverse = True)
+    for speed in sorted_speeds:
+        for key in speed_dict:
+            if speed_dict[key] == speed:
+                ordered.append(key)
+    
+    return ordered
+    
+def attack_damage(low,high):
+    return random.randint(low,high + 1)
+
+
+
                 
 
 
